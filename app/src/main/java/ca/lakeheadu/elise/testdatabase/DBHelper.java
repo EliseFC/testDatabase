@@ -3,6 +3,7 @@ package ca.lakeheadu.elise.testdatabase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -14,11 +15,14 @@ import java.util.ArrayList;
  */
 
 public class DBHelper extends SQLiteOpenHelper{
+    private final String TAG ="DatabaseHandler";
     public static final String TABLE="HISTORY";
 
     public static final String KEY_ID="time";
     public static final String KEY_location="location";
     public static final String KEY_evalu="evaluation";
+
+    private SQLiteDatabase db;
 
    //public int TABLE_ID;
    //public String location;
@@ -38,6 +42,7 @@ public class DBHelper extends SQLiteOpenHelper{
                  + "( " + KEY_ID  + " Time ,"
                  +  " "+KEY_location  + " "+ "Location, "
                   + " "+KEY_evalu  +" integer)";
+        Log.w(TAG,CREATE_TABLE_DETECTINFORM);
         db.execSQL(CREATE_TABLE_DETECTINFORM);
     }
 
@@ -46,30 +51,38 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+    public void open() throws SQLException{
+        db = this.getWritableDatabase();
+    }
+
+    public void close(){
+        this.close();
+    }
     public boolean insertData () {
-        SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ID, "20131101");
         contentValues.put(KEY_location, "01234");
         contentValues.put(KEY_evalu, 1);
         Log.v(KEY_ID,"ID");
         db.insert(TABLE, null, contentValues);
+        Log.i(TAG,"DATA added Successfully.");
         return true;
     }
     /*
-    public boolean insertDummyData (String time_id, String location, int eval) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean insertData (String time_id, String location, int eval) {
         ContentValues contentValues = new ContentValues();
+
         contentValues.put(KEY_ID, time_id);
         contentValues.put(KEY_location, location);
         contentValues.put(KEY_evalu, eval);
         db.insert(TABLE, null, contentValues);
+        Log.i(TAG,"DATA added Successfully.");
         return true;
     }*/
 
     //delete information from database by Prime Key
     public void deleteData(String time_id, String location, int eval){
-        SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE,KEY_ID+"=?",new String[]{String.valueOf(KEY_ID)});
         db.close();
     }

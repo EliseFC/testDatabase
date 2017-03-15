@@ -24,9 +24,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     private SQLiteDatabase db;
 
-   //public int TABLE_ID;
-   //public String location;
-   //public int evaluation;
+
 
     private static final int DATABASE_VERSION=4;
     private static final String DATABASE_NAME="DetectInform.db";  //name of the database
@@ -109,5 +107,7 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
         return studentList;
     }
+
+
 
 }

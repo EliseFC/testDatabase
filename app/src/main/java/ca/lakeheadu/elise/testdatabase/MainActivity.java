@@ -6,6 +6,7 @@ package ca.lakeheadu.elise.testdatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -20,5 +21,14 @@ public class MainActivity extends ActionBarActivity {
         db.open();
         db.insertData();
 
+    }
+
+    public void viewText(int time,String location, int evaluation){
+        TextView vTime= (TextView)findViewById(R.id.time);
+        vTime.setText("time:"+time);
+        TextView vLocation= (TextView)findViewById(R.id.location);
+        vLocation.setText("location:"+location);
+        TextView vEvaluation= (TextView)findViewById(R.id.evaluation);
+        vEvaluation.setText("evaluation:"+ evaluation);
     }
 }
